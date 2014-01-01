@@ -20,36 +20,12 @@ class GamePlayer(object):
             return True
         return False
 
-    def getPossibleActions(self, state):
-        '''Given a state
-           Return a LIST of possible actions from that state
-        '''
-        actions = []
-        for i, post in enumerate(state.posts):
-            if i == 0:
-                opost1 = state.posts[1]
-                opost2 = state.posts[2]
-            elif i == 1:
-                opost1 = state.posts[0]
-                opost2 = state.posts[2]
-            else:
-                opost1 = state.posts[0]
-                opost2 = state.posts[1]
-            if post.hasDisks:
-                if not opost1.hasDisks or post.topDisk < opost1.topDisk:
-                    actions.append(self.Action(post.topDisk, post.num, 
-                                               opost1.num))
-                if not opost2.hasDisks or post.topDisk < opost2.topDisk:
-                    actions.append(self.Action(post.topDisk, post.num, 
-                                               opost2.num))
-        return actions
-
     def getFrontier(self, state):
         '''Given a state, perform all possible actions
            Return a LIST of all resulting stages
         '''
         frontier = []
-        for action in self.getPossibleActions(state):
+        for action in self.Action.getPossibleActions(state):
             newState = action.doAction(state)
             frontier.append(newState)
         return frontier
@@ -86,7 +62,7 @@ class GamePlayer(object):
             self.iterations += 1
             if self.isGoal(state):
                 return state.paths
-            for action in self.getPossibleActions(state):
+            for action in self.Action.getPossibleActions(state):
                 newState = action.doAction(state)
                 if self.stateIn(newState, frontier):
                     continue

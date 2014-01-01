@@ -13,6 +13,29 @@ class Action(object):
     def __repr__(self):
         return "P%s:D%s -> P%s" % (self.src, self.disk, self.dst)
 
+    @classmethod
+    def getPossibleActions(self, state):
+        '''Given a state
+           Return a LIST of possible actions from that state
+        '''
+        actions = []
+        for i, post in enumerate(state.posts):
+            if i == 0:
+                opost1 = state.posts[1]
+                opost2 = state.posts[2]
+            elif i == 1:
+                opost1 = state.posts[0]
+                opost2 = state.posts[2]
+            else:
+                opost1 = state.posts[0]
+                opost2 = state.posts[1]
+            if post.hasDisks:
+                if not opost1.hasDisks or post.topDisk < opost1.topDisk:
+                    actions.append(Action(post.topDisk, post.num, opost1.num))
+                if not opost2.hasDisks or post.topDisk < opost2.topDisk:
+                    actions.append(Action(post.topDisk, post.num, opost2.num))
+        return actions
+
     def doAction(self, state):
         '''Given a state perform action on that state
            Return the new state
