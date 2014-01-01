@@ -1,6 +1,6 @@
 GamePlayer implements a TreeSearch to solve Games.
 
-Example:
+#### Example:
 
     from gameplayer import GamePlayer
     
@@ -21,7 +21,9 @@ Example:
     # Play solution
     gamePlayer.play(initState, result)
 
-State Abstract Class:
+#### The State Abstract Class:
+
+This class implements the state and the problem domain.
 
     class State(object):
   
@@ -52,7 +54,7 @@ State Abstract Class:
         def getGoalState(self):
            ...
 
-Action Abstract Class:
+#### The Action Abstract Class:
 
     class Action(object)
   
