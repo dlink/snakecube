@@ -1,11 +1,16 @@
 #!/usr/bin/env python
 
-import sys
-
 '''Tower of Hanoi Puzzle Solver
 
    Using GamePlayer
 '''
+
+import sys
+import os
+
+# Add parent directory to PYTHONPATH
+parentdir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+os.sys.path.insert(0, parentdir) 
 
 from gameplayer import GamePlayer
 from action import Action

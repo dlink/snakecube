@@ -27,7 +27,7 @@ This class implements the state and the problem domain.
 
     class State(object):
   
-        def __init__(self):
+        def __init__(self, ...):
             # record paths thru solution
             self.paths = []
             ...
