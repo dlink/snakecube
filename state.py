@@ -1,3 +1,7 @@
+SEARCH_TYPE = 'breath-first'
+#SEARCH_TYPE = 'depth-first'
+#SEARCH_TYPE = 'A*' # with a poor heuristic
+
 MAX_DISKS = 4
 NUM_POSTS = 3
 DISPLAY_NUM_ROWS = 7
@@ -8,8 +12,14 @@ D3 = 3
 D4 = 4
 
 class State(object):
+
     def __init__(self, posts):
         self.posts = posts
+
+        # set post numbers:
+        for i, post in enumerate(posts):
+            post.num = i+1
+
         self.paths = []
 
     def getPost(self, num):
@@ -47,15 +57,58 @@ class State(object):
                 print rep[x][y],
             print
 
+    @classmethod
+    def next_state(self, frontier):
+        '''Return the a state from frontier
+           Using algorithm Based on SEARCH_TYPE
+        '''
+        if SEARCH_TYPE == 'breath-first':
+            state = frontier.pop(0)
+        elif SEARCH_TYPE == 'depth-first':
+            state = frontier.pop()
+        elif SEARCH_TYPE == 'A*':
+            # get lowest total cost:
+            states_by_cost = defaultdict(lambda:[])
+            for s in frontier:
+                total_cost = len(s.paths)
+                states_by_cost[total_cost].append(s)
+            min_total_cost = min(states_by_cost.keys())
+            
+            # Heuristic: lest amount of disks on post 1
+            states_by_heuristic = defaultdict(lambda:[])
+            for s in states_by_cost[min_total_cost]:
+                h = len(s.posts[0].disks)
+                states_by_heuristic[h].append(s)
+            min_h = min(states_by_heuristic.keys())
+            
+            # choose a state with least cost and least h and remove from f
+            state = states_by_heuristic[min_h].pop(0)
+            for i, s in enumerate(frontier):
+                if state.equals(s):
+                    del frontier[i]
+                    break
+        else:
+            print 'unrecognized SEARCH_TYPE: %s' % SEARCH_TYPE
+        return state
+
+    @classmethod
+    def getInitState(self):
+        return State([ Post([D4, D3, D2, D1]), 
+                       Post(), 
+                       Post()])
+    @classmethod
+    def getGoalState(self):
+        return State([ Post(),
+                       Post(), 
+                       Post([D4, D3, D2, D1]) ])
+
 class Post(object):
-    num_posts = 0
 
     def __init__(self, disks=None):
         self.disks = []
         if disks:
             self.disks = disks
-        Post.num_posts +=1
-        self.num = Post.num_posts
+        self.num = 0  # unset 
 
     @property
     def hasDisks(self):
@@ -91,6 +144,4 @@ class Post(object):
     def __repr__(self):
         return "(%s)" % "-".join(["D%s" % x for x in self.disks]) 
 
-initState = State([ Post([D4, D3, D2, D1]), Post(), Post()                 ])
-goalState = State([ Post(),                 Post(), Post([D4, D3, D2, D1]) ])
 

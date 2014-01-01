@@ -2,16 +2,13 @@
 
 import sys
 
-SEARCH_TYPE = 'breath-first'
-#SEARCH_TYPE = 'depth-first'
-#SEARCH_TYPE = 'A*' # with a poor heuristic
-
 class GamePlayer(object):
     '''Preside over the game'''
 
-    def __init__(self, Action, goalState):
+    def __init__(self, Action, State):
         self.Action = Action
-        self.goalState = goalState
+        self.State  = State
+        self.goalState = State.getGoalState()
         self.iterations = 0
 
     def isGoal(self, state):
@@ -55,8 +52,8 @@ class GamePlayer(object):
             if not frontier:
                 return "Failed"
 
-            # get next choice
-            state = self.remove_choice(frontier)
+            # get next state
+            state = self.State.next_state(frontier)
             explored.append(state)
             self.iterations += 1
             if self.isGoal(state):
@@ -71,39 +68,6 @@ class GamePlayer(object):
                     continue
                 frontier.append(newState)
                 
-    def remove_choice(self, frontier):
-        '''Return the a state from frontier
-           Using algorithm Based on SEARCH_TYPE
-        '''
-        if SEARCH_TYPE == 'breath-first':
-            state = frontier.pop(0)
-        elif SEARCH_TYPE == 'depth-first':
-            state = frontier.pop()
-        elif SEARCH_TYPE == 'A*':
-            # get lowest total cost:
-            states_by_cost = defaultdict(lambda:[])
-            for s in frontier:
-                total_cost = len(s.paths)
-                states_by_cost[total_cost].append(s)
-            min_total_cost = min(states_by_cost.keys())
-            
-            # Heuristic: lest amount of disks on post 1
-            states_by_heuristic = defaultdict(lambda:[])
-            for s in states_by_cost[min_total_cost]:
-                h = len(s.posts[0].disks)
-                states_by_heuristic[h].append(s)
-            min_h = min(states_by_heuristic.keys())
-            
-            # choose a state with least cost and least h and remove from f
-            state = states_by_heuristic[min_h].pop(0)
-            for i, s in enumerate(frontier):
-                if state.equals(s):
-                    del frontier[i]
-                    break
-        else:
-            print 'unrecognized SEARCH_TYPE: %s' % SEARCH_TYPE
-        return state
-
     def play(self,state, paths):
         '''Play the game, and solve the Puzzle'''
 

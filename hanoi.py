@@ -9,11 +9,12 @@ import sys
 
 from gameplayer import GamePlayer
 from action import Action
-from state import State, initState, goalState
+from state import State
 
 # Main:
 
-gamePlayer = GamePlayer(Action, goalState)
+initState = State.getInitState()
+gamePlayer = GamePlayer(Action, State)
 result = gamePlayer.treeSearch(initState)
 
 # Somme comments:
