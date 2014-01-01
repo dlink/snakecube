@@ -20,6 +20,7 @@ class State(object):
         for i, post in enumerate(posts):
             post.num = i+1
 
+        # record paths thru solution
         self.paths = []
 
     def getPost(self, num):
@@ -28,6 +29,7 @@ class State(object):
         return self.posts[num-1]
 
     def equals(self, state2):
+        '''Return true if this state is equal to that state'''
         for i in range(0, 3):
             if self.posts[i].disks != state2.posts[i].disks:
                 return False
@@ -59,7 +61,7 @@ class State(object):
 
     @classmethod
     def next_state(self, frontier):
-        '''Return the a state from frontier
+        '''Return the a state from a LIST of states
            Using algorithm Based on SEARCH_TYPE
         '''
         if SEARCH_TYPE == 'breath-first':
