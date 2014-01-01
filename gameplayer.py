@@ -80,22 +80,3 @@ class GamePlayer(object):
             i += 1
             print "Move", i
             state.display()
-
-'''
-# Main:
-
-initState = State([Post([D4, D3, D2, D1]), Post(), Post()])
-game = Game()
-result = game.treeSearch(initState)
-
-# Somme comments:
-print "Search type:", SEARCH_TYPE
-print "Iterations Checked:", game.iterations
-print "Solution Path:", result
-print "Num of moves needed:", len(result)
-print "Hit Enter to see it played out."
-yn = sys.stdin.readline()
-
-# Play solution
-game.play(initState, result)
-'''
