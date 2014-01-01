@@ -20,16 +20,6 @@ class GamePlayer(object):
             return True
         return False
 
-    def getFrontier(self, state):
-        '''Given a state, perform all possible actions
-           Return a LIST of all resulting stages
-        '''
-        frontier = []
-        for action in self.Action.getPossibleActions(state):
-            newState = action.doAction(state)
-            frontier.append(newState)
-        return frontier
-            
     def stateIn(self, state, state_list):
         '''Given a state, and a LIST of states
            Return True if state is in that list
@@ -49,19 +39,30 @@ class GamePlayer(object):
            added to explored.  Then determine new frontier.  Until
            solved or fails.
         '''
-        frontier = self.getFrontier(state)
-        explored = [state]
-        goal_states = []
-        done = 0
+        
+        # init frontier:
+        frontier = []
+        for action in self.Action.getPossibleActions(state):
+            newState = action.doAction(state)
+            frontier.append(newState)
 
+        # init explored
+        explored = [state]
+            
+        # iterate
+        done = 0
         while not done:
             if not frontier:
                 return "Failed"
+
+            # get next choice
             state = self.remove_choice(frontier)
             explored.append(state)
             self.iterations += 1
             if self.isGoal(state):
                 return state.paths
+
+            # update frontier
             for action in self.Action.getPossibleActions(state):
                 newState = action.doAction(state)
                 if self.stateIn(newState, frontier):
