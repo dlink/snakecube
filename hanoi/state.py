@@ -60,7 +60,7 @@ class State(object):
             print
 
     @classmethod
-    def next_state(self, frontier):
+    def next_state(cls, frontier):
         '''Return the a state from a LIST of states
            Using algorithm Based on SEARCH_TYPE
         '''
