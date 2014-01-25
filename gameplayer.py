@@ -8,7 +8,6 @@ class GamePlayer(object):
     def __init__(self, Action, State):
         self.Action = Action
         self.State  = State
-        self.goalState = State.getGoalState()
         self.iterations = 0
 
     def isGoal(self, state):
@@ -45,7 +44,7 @@ class GamePlayer(object):
 
         # init explored
         explored = [state]
-            
+
         # iterate
         done = 0
         while not done:
@@ -56,7 +55,7 @@ class GamePlayer(object):
             state = self.State.next_state(frontier)
             explored.append(state)
             self.iterations += 1
-            if self.isGoal(state):
+            if self.State.isGoalState(state):
                 return state.paths
 
             # update frontier
@@ -67,7 +66,7 @@ class GamePlayer(object):
                 if self.stateIn(newState, explored):
                     continue
                 frontier.append(newState)
-                
+
     def play(self,state, paths):
         '''Play the game, and solve the Puzzle'''
 
