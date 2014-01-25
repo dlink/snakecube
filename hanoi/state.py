@@ -104,6 +104,12 @@ class State(object):
                        Post(), 
                        Post([D4, D3, D2, D1]) ])
 
+    @classmethod
+    def isGoalState(cls, state):
+        if state.equals(cls.getGoalState()):
+            return True
+        return False
+
 class Post(object):
 
     def __init__(self, disks=None):
