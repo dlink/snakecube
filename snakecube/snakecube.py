@@ -19,7 +19,8 @@ from state import State
 # Main:
 
 initState = State.getInitState()
-"""
+
+#from vlib.utils import echoized
 gamePlayer = GamePlayer(Action, State)
 result = gamePlayer.treeSearch(initState)
 
@@ -32,5 +33,4 @@ print "Hit Enter to see it played out."
 yn = sys.stdin.readline()
 
 # Play solution
-gamePlayer.play(initState, result)
-"""
+#gamePlayer.play(initState, result)

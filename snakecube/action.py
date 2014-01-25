@@ -1,34 +1,52 @@
 from copy import deepcopy
 
-from structure import Structure
+class Vector(object):
+
+    def __init__(self, name, x, y, z):
+        self.name = name
+        self.x = x
+        self.y = y
+        self.z = z
+
+    def __repr__(self):
+        return self.name
+
+# VECTORS
+X  = Vector( 'X',  1, 0, 0)
+MX = Vector('-X', -1, 0, 0)
+Y =  Vector( 'Y',  0, 1, 0)
+MY = Vector('-Y',  0,-1, 0)
+Z  = Vector( 'Z',  0, 0, 1)
+MZ = Vector('-Z',  0, 0,-1)
+
+# For each vector, there are four possible 90% rotation vectors:
+ROTATION_VECTORS = {X : [Y, MZ, MY, Z],
+                    MX: [Y, MZ, MY, Z],
+                    Y : [X, MZ, MX, Z],
+                    MY: [X, MZ, MX, Z],
+                    Z : [X, Y, MX, MY],
+                    MZ: [X, Y, MX, MY]}
 
 class Action(object):
     '''Preside of Game Actions
 
        An action consists of Adding a block to an existing String of
        Blocks (as defined by the state), and rotating the block.
-
-       Rotations: 0 - no rotation
-                  1 - 90% clock-wise
-                  2 - 180%
-                  3 - 270% clock-wise
     '''
 
-    def __init__(self, block, rotation=0):
+    def __init__(self, block, vector):
         '''An action constists of a new block to add,
            And a rotation component
         '''
-        self.block = block
-        self.rotation = 0
-        self.structure = Structure().structure
+        self.block   = block
+        self.vector  = vector
+
+    def __repr__(self):
+        return '{%s, %s}' % (self.block, self.vector)
 
     def doAction(self, state):
-        '''Given a state perform action on that state
-           Return the new state
-        '''
         new_state = deepcopy(state)
         new_state.paths.append(self)
-        block.rotate(self.rotation)
         return new_state
 
     @classmethod
@@ -38,16 +56,19 @@ class Action(object):
         '''
         actions = []
 
-        # Get next block from the structure
-        block = self.structure[len(state.path)]
+        if not len(state.paths):
+            last_vector = X
+        else:
+            last_vector = state.paths[-1].vector
+        block = state.structure.blocks[len(state.paths)]
+        print '  block:', block
 
-        # Try all rotations:
-        rotations = if block.connector == 2 range(0,1) else range(0,4)
-        for rotation in rotations:
-            action = Action(block, rotation)
-            if actionOk(action):
-                actions.append(action)
-
+        if block.type == 0:
+            vector = last_vector
+            actions.append(Action(block, vector))
+        else:
+            for vector in ROTATION_VECTORS[last_vector]:
+                actions.append(Action(block, vector))
         return actions
 
     def actionOk(self):

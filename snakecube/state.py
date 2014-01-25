@@ -1,12 +1,13 @@
+#from vlib.utils import echoized
+
+from structure import Structure, NUM_BLOCKS
+
 class State(object):
 
-    def __init__(self, blocks):
-        self.blocks = blocks
-        self.gameSpace = GameSpace()
+    structure = Structure()
 
-        # record paths thru solution
-        self.paths = []
-
+    def __init__(self):
+        self.paths = []  # set of actions
 
     def equals(self, state2):
         '''Return true if this state is equal to that state'''
@@ -22,67 +23,26 @@ class State(object):
                 return False
         return True
 
+    def __repr__(self):
+        return 'paths: %s' % self.paths
+
     def display(self):
         '''Output display of state'''
-        ...
+        return str(self.paths)
 
     @classmethod
-    def next_state(self, frontier):
+    def next_state(cls, frontier):
         '''Return the a state from a LIST of states
            Using algorithm Based on SEARCH_TYPE
-      '''
+        '''
+        return frontier.pop(0)
 
     @classmethod
-    def getInitState(self):
-       return State([])
+    def getInitState(cls):
+       return State()
 
     @classmethod
-    def getGoalState(self):
-        '''Need to refactor GamePlayer to use isGoalState'''
-        return None
-
-    @classmethod
-    def isGoalState(self):
-        if len(path) = NUM_BLOCKS: # and self.gameSpace.size = (3,3,3):
-            return Frue
+    def isGoalState(cls, state):
+        if len(state.paths) == NUM_BLOCKS:
+            return True
         return False
-
-class BlockError(Exception): pass
-class Block(object):
-    '''Blocks make up the Structure
-
-       They consist of a connection_postition, and a rotation component
-
-       connection_position:
-                        _
-                 0   --[_]    (No connector - end block)
-
-                        _
-                 1   --[_]    (1 quarter turn)
-                        |
-                        _
-                 2   --[_]--  (2 quarter turn - Rotation has not affect)
-
-                        |
-                 3   --[_]    (3 quarter turn)
-
-       Rotations: 0 - no rotation
-                  1 - 90% clock-wise
-                  2 - 180%
-                  3 - 270% clock-wise
-    '''
-
-    def __init__(self, connector, rotation=0):
-        self.connector = connector
-        self.rotation  = rotation
-
-    def rotate(self, rotation):
-        if rotation not in range (0,4):
-            raise BlockError('Invalid Rotation Parameter: %s' % rotation)
-        self.rotation = rotation
-
-class GameSpace(object):
-
-    def __init__(self):
-        self.size = (0,0,0)
-
