@@ -1,5 +1,7 @@
 from copy import deepcopy
 
+from structure import STRAIGHT, TURN
+
 class Vector(object):
 
     def __init__(self, name, x, y, z):
@@ -60,20 +62,54 @@ class Action(object):
             last_vector = X
         else:
             last_vector = state.paths[-1].vector
-        block = state.structure.blocks[len(state.paths)]
-        print '  block:', block
-
-        if block.type == 0:
-            vector = last_vector
-            actions.append(Action(block, vector))
+        print 'last_vector:', last_vector
+        num_blocks = len(state.paths)
+        block = state.structure.blocks[num_blocks]
+        print 'num_blocks:', num_blocks;
+        if num_blocks == 0:
+            block.x, block.y, block.z = 0,0,0
         else:
-            for vector in ROTATION_VECTORS[last_vector]:
+            prev_block = state.structure.blocks[num_blocks-1]
+            block.x, block.y, block.z = \
+                prev_block.x + last_vector.x, \
+                prev_block.y + last_vector.y, \
+                prev_block.z + last_vector.z
+            #print 'prev_block:', prev_block
+            #print 'block:', block
+        if self.XOkay(state, block):
+            if block.type == STRAIGHT:
+                vector = last_vector
                 actions.append(Action(block, vector))
+            else:
+                for vector in ROTATION_VECTORS[last_vector]:
+                    actions.append(Action(block, vector))
         return actions
 
-    def actionOk(self):
+    @classmethod
+    def XOkay(cls, state, block):
         '''Check to see if this action takes the structure
            outside of the 3x3x3 matrix'''
+        minx = miny = minz = 999
+        maxx = maxy = maxz = -999
 
-        pass
+        i = 0
+        for path in state.paths:
+            i += 1
+            minx = min(minx, state.structure.blocks[i].x)
+            maxx = max(maxx, state.structure.blocks[i].x)
+
+            miny = min(miny, state.structure.blocks[i].y)
+            maxy = max(maxy, state.structure.blocks[i].y)
+
+            minz = min(minz, state.structure.blocks[i].z)
+            maxz = max(maxz, state.structure.blocks[i].z)
+        print 'min max:', minx, maxx, miny, maxy, minz,maxz
+        if \
+                maxx - minx > 2 or \
+                maxy - miny > 2 or \
+                maxz - minz > 2:
+            print 'Went out side of structure'
+            return False
+        return True
+
 

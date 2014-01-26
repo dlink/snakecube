@@ -4,9 +4,8 @@ from structure import Structure, NUM_BLOCKS
 
 class State(object):
 
-    structure = Structure()
-
     def __init__(self):
+        self.structure = Structure()
         self.paths = []  # set of actions
 
     @classmethod

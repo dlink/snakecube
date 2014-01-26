@@ -2,7 +2,7 @@
 
 import sys
 
-DEBUG = 0
+DEBUG = 1
 
 class GamePlayer(object):
     '''Preside over the game'''
