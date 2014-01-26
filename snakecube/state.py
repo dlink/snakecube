@@ -9,27 +9,6 @@ class State(object):
     def __init__(self):
         self.paths = []  # set of actions
 
-    def equals(self, state2):
-        '''Return true if this state is equal to that state'''
-
-        paths  = self.paths
-        paths2 = state2.paths
-
-        if len(paths) != len(paths2):
-            return False
-
-        for i, path in enumerate(paths):
-            if path != paths2[i]:
-                return False
-        return True
-
-    def __repr__(self):
-        return 'paths: %s' % self.paths
-
-    def display(self):
-        '''Output display of state'''
-        return str(self.paths)
-
     @classmethod
     def next_state(cls, frontier):
         '''Return the a state from a LIST of states
@@ -46,3 +25,25 @@ class State(object):
         if len(state.paths) == NUM_BLOCKS:
             return True
         return False
+
+    def __repr__(self):
+        return 'paths: %s' % self.paths
+
+    def display(self):
+        '''Output display of state'''
+        return str(self.paths)
+
+    def equals(self, state2):
+        '''Return true if this state is equal to that state'''
+
+        paths  = self.paths
+        paths2 = state2.paths
+
+        if len(paths) != len(paths2):
+            return False
+
+        for i, path in enumerate(paths):
+            if path != paths2[i]:
+                return False
+        return True
+
