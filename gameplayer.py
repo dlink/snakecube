@@ -43,20 +43,28 @@ class GamePlayer(object):
         for action in self.Action.getPossibleActions(state):
             newState = action.doAction(state)
             frontier.append(newState)
-        if DEBUG:
-            self.displayFrontier(frontier)
+        #if DEBUG:
+        #    self.displayFrontier(frontier)
 
         # init explored
         explored = [state]
 
         # iterate
+        # For each state in frontier
+        #   check if it is the Goal State
+        #   if not add all new possible states to frontier
         done = 0
         while not done:
             if not frontier:
                 return "Failed"
 
             # get next state
+            self.displayFrontier(frontier)
             state = self.State.next_state(frontier)
+            print 'state:', state
+            print 'hit any key',
+            yn = sys.stdin.readline()
+            print
             explored.append(state)
             self.iterations += 1
             if self.State.isGoalState(state):
@@ -70,14 +78,16 @@ class GamePlayer(object):
                 if self.stateIn(newState, explored):
                     continue
                 frontier.append(newState)
-            if DEBUG:
-                self.displayFrontier(frontier)
+            #if DEBUG:
+            #    self.displayFrontier(frontier)
 
     def displayFrontier(self, frontier):
         print 'frontier:\n  ',
         print '\n   '.join(map(str, frontier))
-        print 'hit any key',
-        yn = sys.stdin.readline()
+        print
+        #print 'hit any key',
+        #yn = sys.stdin.readline()
+        #print
 
     def play(self,state, paths):
         '''Play the game, and solve the Puzzle'''
