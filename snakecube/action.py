@@ -1,3 +1,4 @@
+from datetime import datetime
 from copy import deepcopy
 
 from structure import STRAIGHT, TURN
@@ -48,6 +49,9 @@ class Action(object):
 
     def doAction(self, state):
         new_state = deepcopy(state)
+        #new_state.structure.num_structures +=1 
+        #print 'ns:', new_state.structure.num_structures
+        new_state.structure.name = uniqueId()
         new_state.paths.append(self)
         return new_state
 
@@ -62,10 +66,11 @@ class Action(object):
             last_vector = X
         else:
             last_vector = state.paths[-1].vector
-        print 'last_vector:', last_vector
+        #print 'last_vector:', last_vector
         num_blocks = len(state.paths)
-        block = state.structure.blocks[num_blocks]
         print 'num_blocks:', num_blocks;
+        block = state.structure.blocks[num_blocks]
+        #print 'xxblock:', block
         if num_blocks == 0:
             block.x, block.y, block.z = 0,0,0
         else:
@@ -83,19 +88,22 @@ class Action(object):
             else:
                 for vector in ROTATION_VECTORS[last_vector]:
                     actions.append(Action(block, vector))
+        #print 'getPossibleActions: actions: %s' % actions
         return actions
 
     @classmethod
     def XOkay(cls, state, block):
         '''Check to see if this action takes the structure
            outside of the 3x3x3 matrix'''
+        #print 'XOkay(%s, %s, %s)' % (cls, state, block)
         minx = miny = minz = 999
         maxx = maxy = maxz = -999
 
-        i = 0
-        for path in state.paths:
-            i += 1
+        #i = 0
+        for i in range(len(state.paths)+1):
+            #print 'i:', i
             minx = min(minx, state.structure.blocks[i].x)
+            #print '   minx:', minx, state.structure.blocks[i]
             maxx = max(maxx, state.structure.blocks[i].x)
 
             miny = min(miny, state.structure.blocks[i].y)
@@ -103,7 +111,8 @@ class Action(object):
 
             minz = min(minz, state.structure.blocks[i].z)
             maxz = max(maxz, state.structure.blocks[i].z)
-        print 'min max:', minx, maxx, miny, maxy, minz,maxz
+            #i += 1
+        #print 'min max:', minx, maxx, miny, maxy, minz,maxz
         if \
                 maxx - minx > 2 or \
                 maxy - miny > 2 or \
@@ -112,4 +121,9 @@ class Action(object):
             return False
         return True
 
-
+def uniqueId():
+    """Return system time to the millisec as set of numbers"""
+    d = str(datetime.now())
+    #return d[0:4]+d[5:7]+d[8:10]+'-'+d[11:13]+d[14:16]+d[17:19]+'-'+d[20:]
+    #return d[11:13]+d[14:16]+d[17:19]+'.'+d[20:]
+    return d[11:13]+d[14:16]+d[17:19]+'.'+d[20:]

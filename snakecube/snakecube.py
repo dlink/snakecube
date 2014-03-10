@@ -18,7 +18,7 @@ from state import State
 
 # Main:
 
-initState = State.getInitState()
+initState = State.getInitState() # consider moving this call into GamePlayer
 
 #from vlib.utils import echoized
 gamePlayer = GamePlayer(Action, State)

@@ -2,8 +2,12 @@
 
 from structure import Structure, NUM_BLOCKS
 
-class State(object):
+SEARCH_TYPE = 'breath-first'
+#SEARCH_TYPE = 'depth-first'
 
+class State(object):
+    '''A State consists of a Structure of Blocks in a spec. configuration,
+       and a list of paths go get to this state'''
     def __init__(self):
         self.structure = Structure()
         self.paths = []  # set of actions
@@ -13,7 +17,11 @@ class State(object):
         '''Return the a state from a LIST of states
            Using algorithm Based on SEARCH_TYPE
         '''
-        return frontier.pop(0)
+        if SEARCH_TYPE == 'breath-first':
+            state = frontier.pop(0)
+        else:  # SEARCH_TYPE == 'depth-first':
+            state = frontier.pop()
+        return state
 
     @classmethod
     def getInitState(cls):

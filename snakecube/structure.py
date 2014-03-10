@@ -5,21 +5,34 @@ STRAIGHT = 0
 TURN = 1
 
 class Structure(object):
+    '''Structure is a collection of Blocks
+    '''
+    #num_structures = 0
 
     def __init__(self):
-
-        self.structure_cnt = 1
+        self.name = 0
 
         self.blocks = []
         for i, t in enumerate(BLOCK_TYPES):
-            self.blocks.append(Block(i+1, t, self.structure_cnt))
+            self.blocks.append(Block(self, i+1, t))
 
         #self.blocks = [Block(x) for x in BLOCK_TYPES]
 
-class Block(object):
+    def __repr__(self):
+        return str(self.name)
 
-    def __init__(self, num, type, snum):
-        self.snum = snum
+class Block(object):
+    '''A block belongs to a Structure
+       
+       num: position in the structure
+                                                 |
+       type: 0, straight -[ ]-   1, L-shape    -[ ]
+
+       x,y,z: coordinate in space
+
+    '''
+    def __init__(self, structure, num, type):
+        self.structure = structure
         self.num  = num
         self.type = type
         self.type_name = '' if type == STRAIGHT else '-TR'
@@ -29,5 +42,6 @@ class Block(object):
         self.z = None
 
     def __repr__(self):
-        return ('%sBlock%s%s (%s,%s,%s)' % (self.snum, self.num, self.type_name,
-                                         self.x, self.y, self.z))
+        return ('%sBlock%s%s (%s,%s,%s)' % (self.structure, self.num, 
+                                            self.type_name,
+                                            self.x, self.y, self.z))
