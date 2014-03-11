@@ -59,11 +59,11 @@ class GamePlayer(object):
                 return "Failed"
 
             # get next state
-            self.displayFrontier(frontier)
+            #self.displayFrontier(frontier)
             state = self.State.next_state(frontier)
             print 'state:', state
-            print 'hit any key',
-            yn = sys.stdin.readline()
+            #print 'hit any key',
+            #yn = sys.stdin.readline()
             print
             explored.append(state)
             self.iterations += 1

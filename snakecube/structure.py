@@ -1,5 +1,14 @@
-NUM_BLOCKS = 8
-BLOCK_TYPES = [0, 0, 1, 0, 1, 0, 1, 0]
+#NUM_BLOCKS = 8
+#BLOCK_TYPES = [0, 0, 1, 0, 1, 0, 1, 0]
+
+#NUM_BLOCKS = 12
+#BLOCK_TYPES = [0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1]
+
+#NUM_BLOCKS = 20
+#BLOCK_TYPES = [0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1,0,1,0,1,1,1,0,1]
+
+NUM_BLOCKS = 27
+BLOCK_TYPES = [0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1,0,1,0,1,1,1,0,1,1,0,1,1,1,0,0]
 
 STRAIGHT = 0
 TURN = 1

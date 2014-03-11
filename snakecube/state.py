@@ -2,8 +2,8 @@
 
 from structure import Structure, NUM_BLOCKS
 
-SEARCH_TYPE = 'breath-first'
-#SEARCH_TYPE = 'depth-first'
+#SEARCH_TYPE = 'breath-first'
+SEARCH_TYPE = 'depth-first'
 
 class State(object):
     '''A State consists of a Structure of Blocks in a spec. configuration,

@@ -73,6 +73,7 @@ class Action(object):
         #print 'xxblock:', block
         if num_blocks == 0:
             block.x, block.y, block.z = 0,0,0
+            #block.x, block.y, block.z = 1,1,1
         else:
             prev_block = state.structure.blocks[num_blocks-1]
             block.x, block.y, block.z = \
@@ -95,15 +96,27 @@ class Action(object):
     def XOkay(cls, state, block):
         '''Check to see if this action takes the structure
            outside of the 3x3x3 matrix'''
+
+        num_blocks = len(state.paths)
+        # check space occupied
+        x = state.structure.blocks[num_blocks-1].x
+        y = state.structure.blocks[num_blocks-1].y
+        z = state.structure.blocks[num_blocks-1].z
+        for i in range(num_blocks-1):
+            if \
+                    x == state.structure.blocks[i].x and \
+                    y == state.structure.blocks[i].y and \
+                    z == state.structure.blocks[i].z:
+                print 'space occupied'
+                return False
+                    
+            
         #print 'XOkay(%s, %s, %s)' % (cls, state, block)
         minx = miny = minz = 999
         maxx = maxy = maxz = -999
 
-        #i = 0
-        for i in range(len(state.paths)+1):
-            #print 'i:', i
+        for i in range(num_blocks):
             minx = min(minx, state.structure.blocks[i].x)
-            #print '   minx:', minx, state.structure.blocks[i]
             maxx = max(maxx, state.structure.blocks[i].x)
 
             miny = min(miny, state.structure.blocks[i].y)
@@ -111,7 +124,6 @@ class Action(object):
 
             minz = min(minz, state.structure.blocks[i].z)
             maxz = max(maxz, state.structure.blocks[i].z)
-            #i += 1
         #print 'min max:', minx, maxx, miny, maxy, minz,maxz
         if \
                 maxx - minx > 2 or \
