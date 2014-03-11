@@ -49,7 +49,8 @@ class Action(object):
 
     def doAction(self, state):
         new_state = deepcopy(state)
-        new_state.structure.name = uniqueId()
+        #new_state.structure.name = uniqueId()
+        new_state.structure.incrementName()
         new_state.paths.append(self)
         return new_state
 
@@ -128,7 +129,3 @@ class Action(object):
             return False
         return True
 
-def uniqueId():
-    """Return system time to the millisec as set of numbers"""
-    d = str(datetime.now())
-    return d[11:13]+d[14:16]+d[17:19]+'.'+d[20:]

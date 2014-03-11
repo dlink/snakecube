@@ -27,8 +27,9 @@ result = gamePlayer.treeSearch(initState)
 # Somme comments:
 #print "Search type:", SEARCH_TYPE
 print "Iterations Checked:", gamePlayer.iterations
-print "Solution Path:", result
 print "Num of moves needed:", len(result)
+print "Solution Path:"
+print '\n'.join(map(str,result))
 #print "Hit Enter to see it played out."
 #yn = sys.stdin.readline()
 
