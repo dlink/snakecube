@@ -49,8 +49,6 @@ class Action(object):
 
     def doAction(self, state):
         new_state = deepcopy(state)
-        #new_state.structure.num_structures +=1 
-        #print 'ns:', new_state.structure.num_structures
         new_state.structure.name = uniqueId()
         new_state.paths.append(self)
         return new_state
@@ -66,39 +64,37 @@ class Action(object):
             last_vector = X
         else:
             last_vector = state.paths[-1].vector
-        #print 'last_vector:', last_vector
         num_blocks = len(state.paths)
         print 'num_blocks:', num_blocks;
         block = state.structure.blocks[num_blocks]
-        #print 'xxblock:', block
         if num_blocks == 0:
             block.x, block.y, block.z = 0,0,0
-            #block.x, block.y, block.z = 1,1,1
         else:
             prev_block = state.structure.blocks[num_blocks-1]
             block.x, block.y, block.z = \
                 prev_block.x + last_vector.x, \
                 prev_block.y + last_vector.y, \
                 prev_block.z + last_vector.z
-            #print 'prev_block:', prev_block
-            #print 'block:', block
-        if self.XOkay(state, block):
+
+        if self.BlockOkay(state, block):
             if block.type == STRAIGHT:
                 vector = last_vector
                 actions.append(Action(block, vector))
             else:
                 for vector in ROTATION_VECTORS[last_vector]:
                     actions.append(Action(block, vector))
-        #print 'getPossibleActions: actions: %s' % actions
         return actions
 
     @classmethod
-    def XOkay(cls, state, block):
-        '''Check to see if this action takes the structure
-           outside of the 3x3x3 matrix'''
+    def BlockOkay(cls, state, block):
+        '''Check to see 
+             if the block is in an occupied area or
+             if this action takes the structure outside of the 3x3x3 matrix
+        '''
 
         num_blocks = len(state.paths)
-        # check space occupied
+
+        # check if space occupied
         x = state.structure.blocks[num_blocks-1].x
         y = state.structure.blocks[num_blocks-1].y
         z = state.structure.blocks[num_blocks-1].z
@@ -107,11 +103,11 @@ class Action(object):
                     x == state.structure.blocks[i].x and \
                     y == state.structure.blocks[i].y and \
                     z == state.structure.blocks[i].z:
-                print 'space occupied'
+                print 'Space occupied'
                 return False
                     
             
-        #print 'XOkay(%s, %s, %s)' % (cls, state, block)
+        # check if block outside of 3x3 matrix
         minx = miny = minz = 999
         maxx = maxy = maxz = -999
 
@@ -124,7 +120,6 @@ class Action(object):
 
             minz = min(minz, state.structure.blocks[i].z)
             maxz = max(maxz, state.structure.blocks[i].z)
-        #print 'min max:', minx, maxx, miny, maxy, minz,maxz
         if \
                 maxx - minx > 2 or \
                 maxy - miny > 2 or \
@@ -136,6 +131,4 @@ class Action(object):
 def uniqueId():
     """Return system time to the millisec as set of numbers"""
     d = str(datetime.now())
-    #return d[0:4]+d[5:7]+d[8:10]+'-'+d[11:13]+d[14:16]+d[17:19]+'-'+d[20:]
-    #return d[11:13]+d[14:16]+d[17:19]+'.'+d[20:]
     return d[11:13]+d[14:16]+d[17:19]+'.'+d[20:]

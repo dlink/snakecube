@@ -1,31 +1,19 @@
-#NUM_BLOCKS = 8
-#BLOCK_TYPES = [0, 0, 1, 0, 1, 0, 1, 0]
-
-#NUM_BLOCKS = 12
-#BLOCK_TYPES = [0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1]
-
-#NUM_BLOCKS = 20
-#BLOCK_TYPES = [0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1,0,1,0,1,1,1,0,1]
+# Number of blocks and whether ea. is Straight (0) or Turn (1)
 
 NUM_BLOCKS = 27
-BLOCK_TYPES = [0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 1, 1,0,1,0,1,1,1,0,1,1,0,1,1,1,0,0]
-
 STRAIGHT = 0
 TURN = 1
+BLOCK_TYPES = [0,0,1,0,1,0,1,0,1,1,1,1,0,1,0,1,1,1,0,1,1,0,1,1,1,0,0]
 
 class Structure(object):
     '''Structure is a collection of Blocks
     '''
-    #num_structures = 0
-
     def __init__(self):
         self.name = 0
 
         self.blocks = []
         for i, t in enumerate(BLOCK_TYPES):
             self.blocks.append(Block(self, i+1, t))
-
-        #self.blocks = [Block(x) for x in BLOCK_TYPES]
 
     def __repr__(self):
         return str(self.name)
