@@ -71,3 +71,10 @@ This class implements the state and the problem domain.
             '''
             ...
   
+#### Output of Hanoi Puzzle
+
+See [snakecube/hanoi/solution.txt](https://github.com/dlink/snakecube/blob/master/hanoi/solution.txt)
+
+#### Output of Snakecube Puzzle
+
+See [snakecube/snakecube/solution.txt](https://github.com/dlink/snakecube/blob/master/snakecube/solution.txt)
