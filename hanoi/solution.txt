@@ -1,3 +1,7 @@
+#### The Hanoi Puzzle
+
+https://en.wikipedia.org/wiki/Tower_of_Hanoi
+
 #### Output of snakecube/hanoi/hanoi.py
 
 Iterations Checked: 70
