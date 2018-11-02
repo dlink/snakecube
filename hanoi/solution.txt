@@ -165,6 +165,3 @@ Move 15
        |               |           xxxxxxxxx4  
  -------------   -------------   ------------- 
        1               2               3       
-
-
-#### Output of snakecube/snakecube/snakecube.py
