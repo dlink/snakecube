@@ -1,3 +1,5 @@
+#### Output of snakecube/snakecube/snakecube.py
+
 Iterations Checked: 1429
 Num of moves needed: 27
 Solution Path:

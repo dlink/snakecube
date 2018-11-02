@@ -1,0 +1,170 @@
+#### Output of snakecube/hanoi/hanoi.py
+
+Iterations Checked: 70
+Solution Path: [P1:D1 -> P2, P1:D2 -> P3, P2:D1 -> P3, P1:D3 -> P2, P3:D1 -> P1, P3:D2 -> P2, P1:D1 -> P2, P1:D4 -> P3, P2:D1 -> P3, P2:D2 -> P1, P3:D1 -> P1, P2:D3 -> P3, P1:D1 -> P2, P1:D2 -> P3, P2:D1 -> P3]
+Num of moves needed: 15
+Hit Enter to see it played out.
+
+Initial State:
+
+       |               |               |       
+      xxx1             |               |       
+     xxxxx2            |               |       
+    xxxxxxx3           |               |       
+   xxxxxxxxx4          |               |       
+ -------------   -------------   ------------- 
+       1               2               3       
+
+Move 1
+
+       |               |               |       
+       |               |               |       
+     xxxxx2            |               |       
+    xxxxxxx3           |               |       
+   xxxxxxxxx4         xxx1             |       
+ -------------   -------------   ------------- 
+       1               2               3       
+
+Move 2
+
+       |               |               |       
+       |               |               |       
+       |               |               |       
+    xxxxxxx3           |               |       
+   xxxxxxxxx4         xxx1           xxxxx2    
+ -------------   -------------   ------------- 
+       1               2               3       
+
+Move 3
+
+       |               |               |       
+       |               |               |       
+       |               |               |       
+    xxxxxxx3           |              xxx1     
+   xxxxxxxxx4          |             xxxxx2    
+ -------------   -------------   ------------- 
+       1               2               3       
+
+Move 4
+
+       |               |               |       
+       |               |               |       
+       |               |               |       
+       |               |              xxx1     
+   xxxxxxxxx4       xxxxxxx3         xxxxx2    
+ -------------   -------------   ------------- 
+       1               2               3       
+
+Move 5
+
+       |               |               |       
+       |               |               |       
+       |               |               |       
+      xxx1             |               |       
+   xxxxxxxxx4       xxxxxxx3         xxxxx2    
+ -------------   -------------   ------------- 
+       1               2               3       
+
+Move 6
+
+       |               |               |       
+       |               |               |       
+       |               |               |       
+      xxx1           xxxxx2            |       
+   xxxxxxxxx4       xxxxxxx3           |       
+ -------------   -------------   ------------- 
+       1               2               3       
+
+Move 7
+
+       |               |               |       
+       |               |               |       
+       |              xxx1             |       
+       |             xxxxx2            |       
+   xxxxxxxxx4       xxxxxxx3           |       
+ -------------   -------------   ------------- 
+       1               2               3       
+
+Move 8
+
+       |               |               |       
+       |               |               |       
+       |              xxx1             |       
+       |             xxxxx2            |       
+       |            xxxxxxx3       xxxxxxxxx4  
+ -------------   -------------   ------------- 
+       1               2               3       
+
+Move 9
+
+       |               |               |       
+       |               |               |       
+       |               |               |       
+       |             xxxxx2           xxx1     
+       |            xxxxxxx3       xxxxxxxxx4  
+ -------------   -------------   ------------- 
+       1               2               3       
+
+Move 10
+
+       |               |               |       
+       |               |               |       
+       |               |               |       
+       |               |              xxx1     
+     xxxxx2         xxxxxxx3       xxxxxxxxx4  
+ -------------   -------------   ------------- 
+       1               2               3       
+
+Move 11
+
+       |               |               |       
+       |               |               |       
+       |               |               |       
+      xxx1             |               |       
+     xxxxx2         xxxxxxx3       xxxxxxxxx4  
+ -------------   -------------   ------------- 
+       1               2               3       
+
+Move 12
+
+       |               |               |       
+       |               |               |       
+       |               |               |       
+      xxx1             |            xxxxxxx3   
+     xxxxx2            |           xxxxxxxxx4  
+ -------------   -------------   ------------- 
+       1               2               3       
+
+Move 13
+
+       |               |               |       
+       |               |               |       
+       |               |               |       
+       |               |            xxxxxxx3   
+     xxxxx2           xxx1         xxxxxxxxx4  
+ -------------   -------------   ------------- 
+       1               2               3       
+
+Move 14
+
+       |               |               |       
+       |               |               |       
+       |               |             xxxxx2    
+       |               |            xxxxxxx3   
+       |              xxx1         xxxxxxxxx4  
+ -------------   -------------   ------------- 
+       1               2               3       
+
+
+Move 15
+
+       |               |               |       
+       |               |              xxx1     
+       |               |             xxxxx2    
+       |               |            xxxxxxx3   
+       |               |           xxxxxxxxx4  
+ -------------   -------------   ------------- 
+       1               2               3       
+
+
+#### Output of snakecube/snakecube/snakecube.py
