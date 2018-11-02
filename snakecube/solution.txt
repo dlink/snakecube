@@ -1,3 +1,8 @@
+#### The Snake Cube Puzzle
+
+Here is a picture of the puzzle: http://4.bp.blogspot.com/-6g6mJODdztI/UGdmlIeXwvI/AAAAAAAABfs/zleox4vNRSM/s1600/SnakeCubeExample.jpg
+Here is the puzzle on Amazon: https://www.amazon.com/Monkey-Pod-Games-Snake-Cube/dp/B000RFDGUO
+
 #### Output of snakecube/snakecube/snakecube.py
 
 Iterations Checked: 1429
